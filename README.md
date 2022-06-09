@@ -26,3 +26,6 @@ Here you will find a list of all available lights in the current scene. If you a
 ---
 ### Limitations
 - Eevee Shadows are not supported
+---
+##### Notes
+In a seperate branch I have another approach to this where each light gets its own UI class. I believe this would give better control over how the user interacts with the panel. This is taking more work though and I have not got it in a stable state yet. 
