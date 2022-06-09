@@ -23,3 +23,6 @@ Here you will find a list of all available lights in the current scene. If you a
 - By default you will be able to access the `Color`, `Strength` and `Type` of light
 - Toggling `Advanced` on will give you more parameters to edit
 - This also allows you to change the rendering mode between `Cycles` and `Eevee`
+---
+### Limitations
+- Eevee Shadows are not supported
