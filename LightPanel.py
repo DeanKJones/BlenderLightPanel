@@ -23,8 +23,8 @@ class VIEW3D_PT_light_panel(bpy.types.Panel):
     bl_idname = "OBJECT_PT_lights"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = "Lights"
-    bl_label = "Lightsss"
+    bl_category = "Light Panel"
+    bl_label = "Lights"
 
     def draw(self, context):
         
@@ -36,7 +36,7 @@ class VIEW3D_PT_light_panel(bpy.types.Panel):
         
         box = layout.box()
         
-        box.prop(panel_props, "checkbox", text="Advanced")
+        
 
         # Loop lights and display parameters
         lights = [ob for ob in scene.objects if ob.type == 'LIGHT']
@@ -46,7 +46,7 @@ class VIEW3D_PT_light_panel(bpy.types.Panel):
             
             l_box = box.box()
             l_row = l_box.row(align=True)
-            l_col = l_box.column()
+            l_col = l_box.column(align=True)
             
             l_row.label(text=light.name, icon='LIGHT')
             
@@ -68,13 +68,30 @@ class VIEW3D_PT_light_panel(bpy.types.Panel):
                     l_col.prop(light_d.cycles, "cast_shadow")
                     l_col.prop(light_d.cycles, 
                                         "use_multiple_importance_sampling")
-                    l_col.prop(light_d.cycles, "max_bounces")
+                                        
+                    if not light_d == 'AREA' and light_d.cycles.is_portal == False:
+                        l_col.prop(light_d.cycles, "max_bounces")
+                    
                     # Split for light types
-                    if light_d.type in {'POINT', 'SPOT'}:
+                    if light_d.type == 'POINT':
                         l_col.prop(light_d, "shadow_soft_size", text="Radius")
+                        
+                    elif light_d.type == 'SPOT':
+                        l_col.prop(light_d, "shadow_soft_size", text="Radius")
+                        l_col.separator()
+                        
+                        l_col.label(text="Beam Shape:")
+                        l_col.prop(light_d, "spot_size")
+                        l_col.prop(light_d, "spot_blend")
+                        l_col.prop(light_d, "show_cone")
+                        
+                                                
                     elif light_d.type == 'SUN':
                         l_col.prop(light_d, "angle")
+                        
                     elif light_d.type == 'AREA':
+                        l_col.separator()
+                        l_col.label(text="Area Light: ")
                         l_col.prop(light_d, "shape", text="Shape")
                         sub = l_col.column(align=True)
                         
@@ -83,7 +100,10 @@ class VIEW3D_PT_light_panel(bpy.types.Panel):
                         elif light_d.shape in {'RECTANGLE', 'ELLIPSE'}:
                             sub.prop(light_d, "size", text="Size X")
                             sub.prop(light_d, "size_y", text="Y")
-                
+                    
+                        l_col.prop(light_d.cycles, "is_portal")                            
+             
+                        l_col.prop(light_d, "spread")
                 
                 # Eevee               
                 if bpy.data.scenes["Scene"].render.engine == 'BLENDER_EEVEE':
@@ -95,6 +115,7 @@ class VIEW3D_PT_light_panel(bpy.types.Panel):
                     if light_d == bpy.data.lights["Sun"]:
                         l_col.prop(light_d, "angle")
             
+        box.prop(panel_props, "checkbox", text="Advanced")
         # Add engine toggle
         if panel_props.checkbox == True:
             layout.column().prop(render, "engine")
