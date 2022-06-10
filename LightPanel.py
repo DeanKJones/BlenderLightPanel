@@ -36,7 +36,7 @@ class VIEW3D_PT_light_panel(bpy.types.Panel):
         
         box = layout.box()
         
-        
+        box.prop(panel_props, "checkbox", text="Advanced")
 
         # Loop lights and display parameters
         lights = [ob for ob in scene.objects if ob.type == 'LIGHT']
@@ -102,7 +102,6 @@ class VIEW3D_PT_light_panel(bpy.types.Panel):
                             sub.prop(light_d, "size_y", text="Y")
                     
                         l_col.prop(light_d.cycles, "is_portal")                            
-             
                         l_col.prop(light_d, "spread")
                 
                 # Eevee               
@@ -112,10 +111,10 @@ class VIEW3D_PT_light_panel(bpy.types.Panel):
                     l_col.prop(light_d, "specular_factor")
                     l_col.prop(light_d, "volume_factor")
                     
-                    if light_d == bpy.data.lights["Sun"]:
+                    if light_d.type == 'SUN':
                         l_col.prop(light_d, "angle")
             
-        box.prop(panel_props, "checkbox", text="Advanced")
+        
         # Add engine toggle
         if panel_props.checkbox == True:
             layout.column().prop(render, "engine")
