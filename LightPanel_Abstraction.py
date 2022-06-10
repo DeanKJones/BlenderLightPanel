@@ -1,5 +1,19 @@
+
+# Plugin Info
+bl_info = {
+    "name": "Light editor",
+    "author": "D Jones <dhkjones@gmail.com>",
+    "version": (0, 5, 0),
+    "blender": (3, 1, 2),
+    "category": "Light Panel",
+    "location": "View 3D > Tool Shelf",
+    "description": "List all available lights in a given scene for ease of access for lighting artists",
+}
+
+# Imports
 import bpy
 
+# Gather Lights
 class LightPanel(bpy.types.Panel):
     bl_idname = "OBJECT_PT_lightTest"
     bl_space_type = 'VIEW_3D'
