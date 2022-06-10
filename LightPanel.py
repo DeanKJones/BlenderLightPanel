@@ -33,10 +33,7 @@ class VIEW3D_PT_light_panel(bpy.types.Panel):
         render = bpy.data.scenes["Scene"].render
         panel_props = scene.props_light_panel
 
-        
         box = layout.box()
-        
-        box.prop(panel_props, "checkbox", text="Advanced")
 
         # Loop lights and display parameters
         lights = [ob for ob in scene.objects if ob.type == 'LIGHT']
@@ -114,6 +111,8 @@ class VIEW3D_PT_light_panel(bpy.types.Panel):
                     if light_d.type == 'SUN':
                         l_col.prop(light_d, "angle")
             
+        # Toggle Advanced
+        box.prop(panel_props, "checkbox", text="Advanced")
         
         # Add engine toggle
         if panel_props.checkbox == True:
