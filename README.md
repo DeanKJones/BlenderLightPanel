@@ -15,8 +15,8 @@ A quickly accessible list of all available lights and their parameters.
      > Select and install the add-on
      > Check the box and save your preferences 
 ```
-- To see the Add-on, move into the 3D View. Press `N` on your keyboard to open the tool window. A tab named "Lights" should appear at the bottom.
-- To hide the window again, press `N`
+- To see the Add-on, move into the 3D View. Press `N` on your keyboard to open the tool window. A tab named "Light Panel" should appear at the bottom.
+- Pressing `N` will toggle this window.
 
 ## Usage
 Here you will find a list of all available lights in the current scene. If you add or remove a light the list will automatically update. 
